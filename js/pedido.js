@@ -1,52 +1,72 @@
 /*==================================================
                     PEDIDO.JS
-        Gestión de pedidos Heladería Fortunato
+        Gestión pedidos Fortunato
 ==================================================*/
 
 
 const Pedido = {
 
-    codigo: "",
 
-    fecha: null,
+    codigo:"",
 
-    estado: "PENDIENTE",
+    fecha:null,
 
-    tipoEntrega: "",
+    estado:"PENDIENTE",
 
-    sucursal: null,
+
+    tipoEntrega:"",
+
+
+    sucursal:null,
+
 
     cliente:{
 
+
         nombre:"",
+
         telefono:"",
+
         direccion:"",
-        entreCalles:"",
-        referencia:""
+
+        entreCalles:""
+
 
     },
+
 
     pago:{
 
+
         metodo:"",
-        necesitaCambio:false,
-        montoCambio:0,
-        utilizaQR:false,
-        cupon:null
+
+        estado:"PENDIENTE"
+
 
     },
 
+
     productos:[],
+
 
     subtotal:0,
 
+
     envio:0,
+
 
     descuento:0,
 
+
     total:0
 
+
+
 };
+
+
+
+
 
 
 
@@ -54,33 +74,83 @@ const Pedido = {
             CREAR PEDIDO
 ==================================================*/
 
+
 function crearPedido(){
 
-    Pedido.codigo = generarCodigoPedido();
 
-    Pedido.fecha = new Date();
 
-    Pedido.estado = "PENDIENTE";
+    Pedido.codigo=
 
-    Pedido.tipoEntrega = App.tipoEntrega;
+    generarCodigoPedido();
 
-    Pedido.sucursal = App.sucursal;
 
-    Pedido.productos = [...Carrito.items];
 
-    Pedido.subtotal = calcularTotalCarrito();
+    Pedido.fecha=
 
-    Pedido.envio = calcularCostoEnvio();
+    new Date();
 
-    Pedido.total =
 
-        Pedido.subtotal +
 
-        Pedido.envio -
 
-        Pedido.descuento;
+    Pedido.tipoEntrega=
+
+    App.tipoEntrega;
+
+
+
+
+    Pedido.sucursal=
+
+    App.sucursal;
+
+
+
+
+    Pedido.productos=
+
+    [...Carrito.items];
+
+
+
+
+
+    Pedido.subtotal=
+
+    calcularTotalCarrito();
+
+
+
+
+
+    Pedido.envio=
+
+    App.costoEnvio || 0;
+
+
+
+
+
+    Pedido.total=
+
+    Pedido.subtotal
+
+    +
+
+    Pedido.envio
+
+    -
+
+    Pedido.descuento;
+
+
+
 
 }
+
+
+
+
+
 
 
 
@@ -88,336 +158,287 @@ function crearPedido(){
             CODIGO PEDIDO
 ==================================================*/
 
+
 function generarCodigoPedido(){
 
-    const fecha = new Date();
 
-    const año = fecha.getFullYear();
 
-    const mes = String(
+    const fecha=
 
-        fecha.getMonth()+1
+    new Date();
 
-    ).padStart(2,"0");
 
-    const dia = String(
 
-        fecha.getDate()
+    const numero=
 
-    ).padStart(2,"0");
+    Math.floor(
 
-    const numero = Math.floor(
-
-        Math.random()*9000
+    Math.random()*9000
 
     )+1000;
 
-    return `FOR-${año}${mes}${dia}-${numero}`;
+
+
+
+    return `FOR-${fecha.getFullYear()}${fecha.getMonth()+1}${fecha.getDate()}-${numero}`;
 
 }
 
 
 
-/*==================================================
-            COSTO ENVIO
-==================================================*/
 
-function calcularCostoEnvio(){
 
-    if(Pedido.tipoEntrega==="RETIRO"){
 
-        return 0;
-
-    }
-
-    return 0;
-
-}
 
 
 
 /*==================================================
-            CAMBIAR ESTADO
+            WHATSAPP
 ==================================================*/
 
-function cambiarEstadoPedido(estado){
-
-    Pedido.estado = estado;
-
-}
-
-
-
-/*==================================================
-        DATOS CLIENTE
-==================================================*/
-
-function guardarDatosCliente(datos){
-
-    Pedido.cliente={
-
-        ...Pedido.cliente,
-
-        ...datos
-
-    };
-
-}
-
-
-
-/*==================================================
-            DATOS PAGO
-==================================================*/
-
-function guardarPago(datos){
-
-    Pedido.pago={
-
-        ...Pedido.pago,
-
-        ...datos
-
-    };
-
-}
-
-
-
-/*==================================================
-        MENSAJE WHATSAPP
-==================================================*/
 
 function generarMensajeWhatsApp(){
 
+
+
     let mensaje="";
 
-    mensaje += "🍦 HELADERÍA FORTUNATO\n";
-    mensaje += "========================\n\n";
 
-    mensaje += "📋 Pedido: ";
 
-    mensaje += Pedido.codigo;
+    mensaje +=
 
-    mensaje += "\n\n";
-
-    mensaje += "🚚 Tipo: ";
-
-    mensaje += Pedido.tipoEntrega;
-
-    mensaje += "\n";
+    "🍦 HELADERÍA FORTUNATO\n";
 
 
 
-    if(Pedido.tipoEntrega==="DELIVERY"){
+    mensaje +=
 
-        mensaje += "📍 Dirección: ";
-
-        mensaje += Pedido.cliente.direccion;
-
-        mensaje += "\n";
-
-        mensaje += "📌 Entre calles: ";
-
-        mensaje += Pedido.cliente.entreCalles;
-
-        mensaje += "\n";
-
-    }
+    "====================\n\n";
 
 
 
-    mensaje += "\n🍨 PRODUCTOS\n\n";
+
+    mensaje +=
+
+    "Pedido: "
+
+    +
+
+    Pedido.codigo
+
+    +
+
+    "\n\n";
 
 
 
-    Pedido.productos.forEach((producto,index)=>{
 
-        mensaje += `${index+1}) ${producto.nombre}\n`;
 
-        mensaje += "Sabores:\n";
+    mensaje +=
 
-        producto.sabores.forEach(sabor=>{
+    "📦 PRODUCTOS\n\n";
 
-            mensaje += "• ";
 
-            mensaje += sabor.nombre;
 
-            mensaje += "\n";
+
+
+    Pedido.productos.forEach(
+
+    (producto,index)=>{
+
+
+
+        mensaje +=
+
+        `${index+1}) ${producto.cantidad} x ${producto.nombre}\n`;
+
+
+
+        mensaje +=
+
+        "Sabores:\n";
+
+
+
+        producto.sabores.forEach(
+
+        sabor=>{
+
+
+            mensaje +=
+
+            "• "
+
+            +
+
+            sabor.nombre
+
+            +
+
+            "\n";
+
 
         });
 
+
+
         mensaje += "\n";
+
+
 
     });
 
 
 
-    mensaje += "💲Subtotal: $";
-
-    mensaje += Pedido.subtotal.toLocaleString("es-AR");
-
-    mensaje += "\n";
 
 
 
-    mensaje += "🚚 Envío: $";
 
-    mensaje += Pedido.envio.toLocaleString("es-AR");
-
-    mensaje += "\n";
+    if(Pedido.tipoEntrega==="DELIVERY"){
 
 
 
-    mensaje += "🎁 Descuento: $";
+        mensaje +=
 
-    mensaje += Pedido.descuento.toLocaleString("es-AR");
-
-    mensaje += "\n";
+        "🚚 DELIVERY\n\n";
 
 
 
-    mensaje += "========================\n";
+        mensaje +=
+
+        "Dirección: "
+
+        +
+
+        Pedido.cliente.direccion
+
+        +
+
+        "\n";
 
 
 
-    mensaje += "TOTAL: $";
+        mensaje +=
 
-    mensaje += Pedido.total.toLocaleString("es-AR");
+        "Entre calles: "
 
-    mensaje += "\n\n";
+        +
 
+        Pedido.cliente.entreCalles
 
+        +
 
-    mensaje += "💳 Pago: ";
-
-    mensaje += Pedido.pago.metodo;
-
-    mensaje += "\n";
+        "\n\n";
 
 
 
-    if(Pedido.pago.necesitaCambio){
+    }
 
-        mensaje += "💵 Llevo: $";
+    else{
 
-        mensaje += Pedido.pago.montoCambio;
 
-        mensaje += "\n";
+        mensaje +=
+
+        "🏪 RETIRO EN LOCAL\n\n";
+
 
     }
 
 
 
-    if(Pedido.pago.utilizaQR){
 
-        mensaje += "📲 Abona mediante QR\n";
 
-    }
+
+
+    mensaje +=
+
+    "💰 TOTAL: $"
+
+    +
+
+    Pedido.total
+
+    .toLocaleString("es-AR")
+
+    +
+
+    "\n\n";
+
+
+
+
+
+    mensaje +=
+
+    "💳 Pago: "
+
+    +
+
+    Pedido.pago.metodo
+
+    +
+
+    "\n";
+
 
 
 
     return mensaje;
 
+
+
 }
+
+
+
+
+
+
 
 
 
 /*==================================================
         ENVIAR WHATSAPP
 ==================================================*/
-/*==================================================
-        MERCADO PAGO
-        Conexión Frontend - Backend
-==================================================*/
 
 
-async function crearPagoMercadoPago(){
-
-
-    try{
-
-
-        crearPedido();
+function enviarWhatsApp(){
 
 
 
-        const respuesta = await fetch(
-
-            "http://localhost:3000/crear-pago",
-
-            {
-
-                method:"POST",
+    crearPedido();
 
 
-                headers:{
 
-                    "Content-Type":
+    const mensaje=
 
-                    "application/json"
-
-                },
-
-
-                body:JSON.stringify(Pedido)
-
-
-            }
-
-        );
+    generarMensajeWhatsApp();
 
 
 
 
-        const datos = await respuesta.json();
+    const telefono=
+
+    "5491100000000";
+
+
+
+
+    const url=
+
+    `https://wa.me/${telefono}?text=${encodeURIComponent(mensaje)}`;
 
 
 
 
 
-        if(!datos.ok){
+    window.open(
 
+        url,
 
-            mostrarMensaje(
+        "_blank"
 
-                "No se pudo generar el pago"
-
-            );
-
-
-            return;
-
-
-        }
-
-
-
-
-
-        mostrarPago(datos.pago);
-
-
-
-    }
-
-
-
-    catch(error){
-
-
-        console.error(error);
-
-
-
-        mostrarMensaje(
-
-            "Error de conexión con Mercado Pago"
-
-        );
-
-
-    }
+    );
 
 
 
@@ -427,148 +448,6 @@ async function crearPagoMercadoPago(){
 
 
 
-
-
-/*==================================================
-            MOSTRAR PAGO
-==================================================*/
-
-
-function mostrarPago(pago){
-
-
-
-    cambiarPantalla("pago");
-
-
-
-    const contenedor =
-
-    document.getElementById(
-
-        "qr-pago"
-
-    );
-
-
-
-    const estado =
-
-    document.getElementById(
-
-        "estado-pago"
-
-    );
-
-
-
-
-
-    if(contenedor){
-
-
-
-        // Mercado Pago devuelve
-        // una URL segura de pago
-
-
-        contenedor.style.display="none";
-
-
-
-    }
-
-
-
-
-    if(estado){
-
-
-        estado.innerHTML=`
-
-        <h3>
-
-        Pago generado correctamente
-
-        </h3>
-
-
-        <p>
-
-        Presioná el botón para pagar
-
-        </p>
-
-
-        <a 
-
-        href="${pago.urlPago}"
-
-        target="_blank"
-
-        class="btn-principal">
-
-
-        Abrir Mercado Pago
-
-
-        </a>
-
-        `;
-
-
-    }
-
-
-
-}
-
-
-
-
-
-
-
-/*==================================================
-        CONFIRMAR PAGO
-==================================================*/
-
-
-function confirmarPago(){
-
-
-    cambiarEstadoPedido(
-
-        "PAGO_CONFIRMADO"
-
-    );
-
-
-    irConfirmacion();
-
-
-}
-
-
-
-
-
-
-
-
-/*==================================================
-        EXPORTAR
-==================================================*/
-
-
-window.crearPagoMercadoPago=
-
-crearPagoMercadoPago;
-
-
-window.confirmarPago=
-
-confirmarPago;
 
 
 
@@ -576,14 +455,20 @@ confirmarPago;
             EXPORTAR
 ==================================================*/
 
-window.Pedido = Pedido;
 
-window.crearPedido = crearPedido;
+window.Pedido=Pedido;
 
-window.enviarWhatsApp = enviarWhatsApp;
 
-window.guardarDatosCliente = guardarDatosCliente;
+window.crearPedido=
 
-window.guardarPago = guardarPago;
+crearPedido;
 
-window.cambiarEstadoPedido = cambiarEstadoPedido;
+
+window.enviarWhatsApp=
+
+enviarWhatsApp;
+
+
+window.generarMensajeWhatsApp=
+
+generarMensajeWhatsApp;
