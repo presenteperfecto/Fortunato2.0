@@ -257,7 +257,7 @@ App.productoActual.saboresPermitidos
 
 mostrarMensaje(
 
-"Elegiste demasiados sabores"
+`Este producto permite elegir hasta ${App.productoActual.saboresPermitidos} gustos`
 
 );
 
