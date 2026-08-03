@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <title>
+        Heladería Fortunato
+    </title>
+
+
+    <!-- CSS -->
+
+    <link rel="stylesheet" href="css/style.css">
+
+
+</head>
+
+
+<body>
+
+
+<header class="header">
+
+    <div class="logo">
+
+        <h1>
+            Heladería Fortunato
+        </h1>
+
+        <p>
+            Tradición Argentina
+        </p>
+
+    </div>
+
+
+    <div id="cart-floating">
+
+        🛒
+
+        <span id="cart-count">
+            0
+        </span>
+
+    </div>
+
+
+</header>
+
+
+
+
+
+<main>
+
+
+<!--========================================
+                INICIO
+=========================================-->
+
+<section 
+id="inicio"
+class="pantalla">
+
+
+    <div class="hero">
+
+
+        <h2>
+            El sabor de siempre
+        </h2>
+
+
+        <p>
+            Elegí tus sabores favoritos
+        </p>
+
+
+        <button 
+        id="btn-comenzar"
+        class="btn-principal">
+
+            Realizar pedido
+
+        </button>
+
+
+    </div>
+
+
+
+    <div 
+    id="delivery-options"
+    class="opciones-entrega">
+
+
+        <button 
+        id="btn-delivery"
+        class="btn-opcion">
+
+
+            🚚
+
+            Delivery
+
+
+        </button>
+
+
+
+        <button 
+        id="btn-retiro"
+        class="btn-opcion">
+
+
+            🏪
+
+            Retirar en local
+
+
+        </button>
+
+
+    </div>
+
+
+</section>
+
+
+
+
+
+
+<!--========================================
+                DIRECCION
+=========================================-->
+
+<section 
+id="direccion"
+class="pantalla oculto">
+
+
+<h2 id="titulo-pantalla">
+
+    Dirección
+
+</h2>
+
+
+<div id="map"></div>
+
+
+
+<input 
+type="text"
+id="direccion-cliente"
+placeholder="Ingresá tu dirección">
+
+
+<input 
+type="text"
+id="entre-calles"
+placeholder="Entre calles">
+
+
+
+<button 
+onclick="validarDireccion()"
+class="btn-principal">
+
+Continuar
+
+</button>
+
+
+</section>
+
+
+
+
+
+
+<!--========================================
+                SUCURSALES
+=========================================-->
+
+<section 
+id="sucursales"
+class="pantalla oculto">
+
+
+<h2>
+Seleccioná una sucursal
+</h2>
+
+
+<div id="lista-sucursales">
+
+</div>
+
+
+</section>
+
+
+
+
+
+
+<!--========================================
+                PRODUCTOS
+=========================================-->
+
+<section 
+id="productos"
+class="pantalla oculto">
+
+
+<h2>
+Elegí tu producto
+</h2>
+
+
+<div 
+id="lista-productos"
+class="productos-container">
+
+
+</div>
+
+
+</section>
+
+
+
+
+
+
+<!--========================================
+                SABORES
+=========================================-->
+
+<section 
+id="sabores"
+class="pantalla oculto">
+
+
+<h2>
+Elegí tus sabores
+</h2>
+
+
+
+<div 
+id="lista-sabores"
+class="sabores-container">
+
+
+</div>
+
+
+
+<button 
+onclick="confirmarSabores()"
+class="btn-principal">
+
+Agregar al pedido
+
+</button>
+
+
+</section>
+
+
+
+
+
+
+
+<!--========================================
+                CARRITO
+=========================================-->
+
+<section 
+id="carrito"
+class="pantalla oculto">
+
+
+<h2>
+Tu pedido
+</h2>
+
+
+
+<div 
+id="carrito-lista">
+
+
+</div>
+
+
+
+<h3>
+
+Total:
+
+<span id="carrito-total">
+
+0
+
+</span>
+
+</h3>
+
+
+
+<button 
+onclick="irConfirmacion()"
+class="btn-principal">
+
+Continuar
+
+</button>
+
+
+</section>
+
+
+
+
+
+
+<!--========================================
+            CONFIRMACION
+=========================================-->
+
+<section 
+id="confirmacion"
+class="pantalla oculto">
+
+
+<h2>
+Confirmar pedido
+</h2>
+
+
+
+<input 
+id="nombre-cliente"
+placeholder="Nombre">
+
+
+<input 
+id="telefono-cliente"
+placeholder="Teléfono">
+
+
+
+<select id="metodo-pago">
+
+
+<option>
+Efectivo
+</option>
+
+
+<option>
+Transferencia
+</option>
+
+
+<option>
+QR
+</option>
+
+
+</select>
+
+
+
+<button 
+onclick="enviarWhatsApp()"
+class="btn-principal">
+
+Enviar pedido
+
+</button>
+
+
+
+</section>
+
+
+
+</main>
+
+
+
+
+
+<!--========================================
+                GOOGLE MAPS
+=========================================-->
+
+
+<script 
+async
+defer
+src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAGJypEHPgsIoYx_k-Ya7zT-DHGkZxJESY&libraries=geometry">
+</script>
+
+
+
+
+
+<!-- DATA -->
+
+<script src="data/sucursales.js"></script>
+
+<script src="data/productos.js"></script>
+
+<script src="data/sabores.js"></script>
+
+
+
+
+<!-- JS -->
+
+<script src="js/router.js"></script>
+
+<script src="js/ui.js"></script>
+
+<script src="js/carrito.js"></script>
+
+<script src="js/pedido.js"></script>
+
+<script src="js/mapa.js"></script>
+
+<script src="js/app.js"></script>
+
+
+
+</body>
+
+</html>
