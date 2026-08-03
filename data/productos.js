@@ -6,153 +6,86 @@
 
 const productos = [
 
-/*==================================================
-                    HELADOS
-==================================================*/
 
 {
     id:1,
-    categoria:"Helados",
-    nombre:"1/2 Kg",
-    codigo:"HLD-500",
 
-    descripcion:"Hasta 2 sabores",
+    nombre:"1/4 Kg Helado",
 
-    precio:0, // El administrador podrá modificarlo
+    categoria:"Helado",
 
-    peso:500,
+    precio:3500,
 
-    saboresPermitidos:2,
+    saboresPermitidos:3,
 
-    disponible:true,
+    descripcion:
+    "Cuarto kilo de helado artesanal",
 
-    visible:true,
+    disponible:true
 
-    stockControl:false,
-
-    stock:9999,
-
-    imagen:"img/productos/medio.png"
 },
+
 
 
 {
     id:2,
-    categoria:"Helados",
-    nombre:"1 Kg",
-    codigo:"HLD-1000",
 
-    descripcion:"Hasta 4 sabores",
+    nombre:"1/2 Kg Helado",
 
-    precio:0,
+    categoria:"Helado",
 
-    peso:1000,
+    precio:6500,
 
     saboresPermitidos:4,
 
-    disponible:true,
+    descripcion:
+    "Medio kilo de helado artesanal",
 
-    visible:true,
+    disponible:true
 
-    stockControl:false,
-
-    stock:9999,
-
-    imagen:"img/productos/1kg.png"
 },
+
+
 
 
 {
     id:3,
-    categoria:"Helados",
-    nombre:"2 Kg",
 
-    codigo:"HLD-2000",
+    nombre:"1 Kg Helado",
 
-    descripcion:"Hasta 8 sabores",
+    categoria:"Helado",
 
-    precio:0,
+    precio:12000,
 
-    peso:2000,
+    saboresPermitidos:4,
 
-    saboresPermitidos:8,
+    descripcion:
+    "Kilo de helado artesanal",
 
-    disponible:true,
+    disponible:true
 
-    visible:true,
-
-    stockControl:false,
-
-    stock:9999,
-
-    imagen:"img/productos/2kg.png"
 },
 
 
 
 
-/*==================================================
-                    PALETAS
-==================================================*/
-
-
 {
-    id:10,
+    id:4,
 
-    categoria:"Paletas",
+    nombre:"Paleta Helada",
 
-    nombre:"Paleta",
+    categoria:"Paleta",
 
-    codigo:"PAL-001",
+    precio:2500,
 
-    descripcion:"Paleta artesanal",
+    saboresPermitidos:1,
 
-    precio:0,
+    descripcion:
+    "Paletas bañadas artesanales",
 
-    disponible:true,
+    disponible:true
 
-    visible:true,
-
-    stockControl:true,
-
-    stock:999,
-
-    imagen:"img/productos/paleta.png"
-},
-
-
-
-
-/*==================================================
-                POSTRES
-==================================================*/
-
-
-{
-    id:20,
-
-    categoria:"Postres",
-
-    nombre:"Postres",
-
-    codigo:"PST-001",
-
-    descripcion:"Próximamente",
-
-    precio:0,
-
-    disponible:false,
-
-    visible:false,
-
-    stockControl:false,
-
-    stock:0,
-
-    imagen:"img/productos/postres.png"
 }
-
-
 
 ];
 
