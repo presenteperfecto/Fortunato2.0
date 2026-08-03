@@ -1,33 +1,159 @@
 /*==================================================
                     CARRITO.JS
-        Gestión del carrito de compras
+        Carrito múltiple Fortunato
 ==================================================*/
 
 
 const Carrito = {
 
-    items: []
+
+    items:[]
+
 
 };
+
+
+
 
 
 /*==================================================
             AGREGAR PRODUCTO
 ==================================================*/
 
+
 function agregarAlCarrito(producto){
 
-    Carrito.items.push(producto);
+
+
+    const existente =
+
+    Carrito.items.find(item =>
+
+
+        item.id === producto.id &&
+
+
+        JSON.stringify(item.sabores)
+
+        ===
+
+        JSON.stringify(producto.sabores)
+
+
+    );
+
+
+
+
+
+    if(existente){
+
+
+        existente.cantidad++;
+
+
+    }
+
+    else{
+
+
+        producto.cantidad = 1;
+
+
+        Carrito.items.push(producto);
+
+
+    }
+
+
+
+
 
     App.carrito = Carrito.items;
 
+
+
     actualizarContadorCarrito();
+
+
 
     actualizarVistaCarrito();
 
-    actualizarTotalCarrito();
 
 }
+
+
+
+
+
+
+
+
+/*==================================================
+            SUMAR CANTIDAD
+==================================================*/
+
+
+function aumentarCantidad(index){
+
+
+
+    Carrito.items[index].cantidad++;
+
+
+
+    actualizarVistaCarrito();
+
+
+}
+
+
+
+
+
+
+
+
+/*==================================================
+            RESTAR CANTIDAD
+==================================================*/
+
+
+function disminuirCantidad(index){
+
+
+
+    if(Carrito.items[index].cantidad > 1){
+
+
+
+        Carrito.items[index].cantidad--;
+
+
+
+    }
+
+    else{
+
+
+        eliminarDelCarrito(index);
+
+
+        return;
+
+
+    }
+
+
+
+    actualizarVistaCarrito();
+
+
+}
+
+
+
+
 
 
 
@@ -36,216 +162,359 @@ function agregarAlCarrito(producto){
             ELIMINAR PRODUCTO
 ==================================================*/
 
-function eliminarDelCarrito(indice){
 
-    if(indice < 0 || indice >= Carrito.items.length){
+function eliminarDelCarrito(index){
 
-        return;
 
-    }
 
-    Carrito.items.splice(indice,1);
+    Carrito.items.splice(
+
+        index,
+
+        1
+
+    );
+
+
 
     App.carrito = Carrito.items;
 
-    actualizarContadorCarrito();
+
 
     actualizarVistaCarrito();
 
-    actualizarTotalCarrito();
 
-}
-
-
-
-
-/*==================================================
-            VACIAR CARRITO
-==================================================*/
-
-function vaciarCarrito(){
-
-    Carrito.items = [];
-
-    App.carrito = [];
 
     actualizarContadorCarrito();
 
-    actualizarVistaCarrito();
-
-    actualizarTotalCarrito();
 
 }
 
 
 
 
-/*==================================================
-            CANTIDAD ITEMS
-==================================================*/
-
-function cantidadItems(){
-
-    return Carrito.items.length;
-
-}
 
 
 
 
 /*==================================================
-            TOTAL CARRITO
+            TOTAL
 ==================================================*/
+
 
 function calcularTotalCarrito(){
 
-    let total = 0;
+
+    let total=0;
+
+
 
     Carrito.items.forEach(item=>{
 
-        total += Number(item.precio);
+
+        total +=
+
+        item.precio *
+
+        item.cantidad;
+
 
     });
+
+
 
     return total;
 
-}
-
-
-
-
-/*==================================================
-        ACTUALIZAR TOTAL
-==================================================*/
-
-function actualizarTotalCarrito(){
-
-    const total = document.getElementById("carrito-total");
-
-    if(!total) return;
-
-    total.textContent =
-
-        "$ " +
-
-        calcularTotalCarrito().toLocaleString("es-AR");
 
 }
 
 
 
 
+
+
+
+
 /*==================================================
-        ACTUALIZAR CONTADOR
+            ACTUALIZAR CONTADOR
 ==================================================*/
+
 
 function actualizarContadorCarrito(){
 
-    const contador = document.getElementById("cart-count");
-
-    if(!contador) return;
-
-    contador.textContent = cantidadItems();
-
-}
 
 
+    const contador=
+
+    document.getElementById(
+
+        "cart-count"
+
+    );
 
 
-/*==================================================
-            ACTUALIZAR VISTA
-==================================================*/
 
-function actualizarVistaCarrito(){
+    if(!contador)return;
 
-    const lista = document.getElementById("carrito-lista");
 
-    if(!lista) return;
 
-    lista.innerHTML = "";
+    let cantidad=0;
 
-    Carrito.items.forEach((item,indice)=>{
 
-        const card = document.createElement("div");
 
-        card.className = "carrito-item";
+    Carrito.items.forEach(item=>{
 
-        card.innerHTML = `
 
-            <div class="carrito-info">
+        cantidad += item.cantidad;
 
-                <h3>${item.nombre}</h3>
-
-                <p>
-
-                    ${item.sabores.map(
-
-                        sabor=>sabor.nombre
-
-                    ).join(", ")}
-
-                </p>
-
-            </div>
-
-            <div class="carrito-precio">
-
-                $${Number(item.precio).toLocaleString("es-AR")}
-
-            </div>
-
-            <button
-
-                class="btn-eliminar"
-
-                onclick="eliminarDelCarrito(${indice})">
-
-                ✕
-
-            </button>
-
-        `;
-
-        lista.appendChild(card);
 
     });
 
-}
 
 
 
+    contador.textContent=cantidad;
 
-/*==================================================
-        OBTENER CARRITO
-==================================================*/
 
-function obtenerCarrito(){
-
-    return Carrito.items;
 
 }
 
 
 
 
+
+
+
+
 /*==================================================
-            EXPORTAR
+            MOSTRAR CARRITO
 ==================================================*/
 
-window.Carrito = Carrito;
 
-window.agregarAlCarrito = agregarAlCarrito;
+function actualizarVistaCarrito(){
 
-window.eliminarDelCarrito = eliminarDelCarrito;
 
-window.vaciarCarrito = vaciarCarrito;
 
-window.calcularTotalCarrito = calcularTotalCarrito;
+    const lista=
 
-window.actualizarTotalCarrito = actualizarTotalCarrito;
+    document.getElementById(
 
-window.actualizarContadorCarrito = actualizarContadorCarrito;
+        "carrito-lista"
 
-window.actualizarVistaCarrito = actualizarVistaCarrito;
+    );
 
-window.obtenerCarrito = obtenerCarrito;
+
+
+    const total=
+
+    document.getElementById(
+
+        "carrito-total"
+
+    );
+
+
+
+    if(!lista)return;
+
+
+
+    lista.innerHTML="";
+
+
+
+
+
+    Carrito.items.forEach((item,index)=>{
+
+
+
+        const div=
+
+        document.createElement("div");
+
+
+
+        div.className=
+
+        "carrito-item";
+
+
+
+
+
+        div.innerHTML=`
+
+        
+        <div>
+
+
+        <h3>
+
+        ${item.nombre}
+
+        </h3>
+
+
+
+        <p>
+
+        ${item.sabores
+
+        .map(s=>s.nombre)
+
+        .join(", ")}
+
+
+        </p>
+
+
+
+        <strong>
+
+        Cantidad:
+
+        ${item.cantidad}
+
+        </strong>
+
+
+        </div>
+
+
+
+        <div>
+
+
+        <button
+
+        onclick="disminuirCantidad(${index})">
+
+        -
+
+        </button>
+
+
+
+        <button
+
+        onclick="aumentarCantidad(${index})">
+
+        +
+
+        </button>
+
+
+
+        <button
+
+        onclick="eliminarDelCarrito(${index})">
+
+        ❌
+
+        </button>
+
+
+        </div>
+
+
+        `;
+
+
+
+        lista.appendChild(div);
+
+
+
+    });
+
+
+
+
+
+
+    if(total){
+
+
+        total.textContent=
+
+        "$ "
+
+        +
+
+        calcularTotalCarrito()
+
+        .toLocaleString("es-AR");
+
+
+    }
+
+
+}
+
+
+
+
+
+
+
+
+/*==================================================
+            VACIAR
+==================================================*/
+
+
+function vaciarCarrito(){
+
+
+    Carrito.items=[];
+
+
+    App.carrito=[];
+
+
+    actualizarVistaCarrito();
+
+
+    actualizarContadorCarrito();
+
+
+}
+
+
+
+
+
+
+
+window.Carrito=Carrito;
+
+
+window.agregarAlCarrito=
+
+agregarAlCarrito;
+
+
+window.eliminarDelCarrito=
+
+eliminarDelCarrito;
+
+
+window.aumentarCantidad=
+
+aumentarCantidad;
+
+
+window.disminuirCantidad=
+
+disminuirCantidad;
+
+
+window.calcularTotalCarrito=
+
+calcularTotalCarrito;
+
+
+window.actualizarVistaCarrito=
+
+actualizarVistaCarrito;
