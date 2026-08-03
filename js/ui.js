@@ -298,7 +298,13 @@ agregarAlCarrito(productoPedido);
 
 
 
-irCarrito();
+mostrarMensaje(
+"Producto agregado"
+);
+
+cambiarPantalla(
+"productos"
+);
 
 
 
