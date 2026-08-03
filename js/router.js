@@ -1,224 +1,180 @@
 /*==================================================
                     ROUTER.JS
-        Control de navegación de la aplicación
 ==================================================*/
+
 
 const Router = {
 
-    pantallaActual: "inicio",
+    pantallaActual:"inicio",
 
-    historial: []
+    historial:[]
 
 };
 
 
-/*==================================================
-                CAMBIAR PANTALLA
-==================================================*/
 
 function cambiarPantalla(nombrePantalla){
 
+
+    const actual = Router.pantallaActual;
+
+
+    if(actual !== nombrePantalla){
+
+        Router.historial.push(actual);
+
+    }
+
+
     ocultarPantallas();
+
+
 
     const pantalla = document.getElementById(nombrePantalla);
 
+
+
     if(!pantalla){
 
-        console.error("La pantalla no existe:", nombrePantalla);
+        console.error(
+            "Pantalla inexistente:",
+            nombrePantalla
+        );
 
         return;
 
     }
+
+
 
     pantalla.classList.remove("oculto");
 
-    Router.historial.push(Router.pantallaActual);
+
 
     Router.pantallaActual = nombrePantalla;
 
-    actualizarTitulo();
+
+
+    actualizarBotonVolver();
+
+
 
 }
 
 
 
-/*==================================================
-                OCULTAR PANTALLAS
-==================================================*/
+
 
 function ocultarPantallas(){
 
-    const pantallas = document.querySelectorAll(".pantalla");
 
-    pantallas.forEach(pantalla=>{
+    document
 
-        pantalla.classList.add("oculto");
+    .querySelectorAll(".pantalla")
+
+    .forEach(p=>{
+
+        p.classList.add("oculto");
 
     });
+
 
 }
 
 
 
-/*==================================================
-                VOLVER
-==================================================*/
+
 
 function volverPantalla(){
 
+
     if(Router.historial.length===0){
+
+        cambiarPantalla("inicio");
 
         return;
 
     }
 
-    const anterior = Router.historial.pop();
 
-    cambiarPantalla(anterior);
+
+    const anterior=
+
+    Router.historial.pop();
+
+
+
+    ocultarPantallas();
+
+
+
+    document
+
+    .getElementById(anterior)
+
+    .classList
+
+    .remove("oculto");
+
+
+
+    Router.pantallaActual=anterior;
+
+
+
+    actualizarBotonVolver();
+
 
 }
 
 
 
-/*==================================================
-            ACTUALIZAR TITULO
-==================================================*/
 
-function actualizarTitulo(){
 
-    const titulo = document.getElementById("titulo-pantalla");
 
-    if(!titulo) return;
+function actualizarBotonVolver(){
 
-    switch(Router.pantallaActual){
 
-        case "inicio":
-            titulo.textContent="Heladería Fortunato";
-        break;
+    const boton=
 
-        case "direccion":
-            titulo.textContent="Ingresá tu dirección";
-        break;
+    document.getElementById(
 
-        case "sucursales":
-            titulo.textContent="Elegí una sucursal";
-        break;
+        "btn-volver"
 
-        case "productos":
-            titulo.textContent="Elegí tus productos";
-        break;
+    );
 
-        case "sabores":
-            titulo.textContent="Seleccioná los sabores";
-        break;
 
-        case "carrito":
-            titulo.textContent="Tu pedido";
-        break;
 
-        case "confirmacion":
-            titulo.textContent="Confirmar pedido";
-        break;
+    if(!boton)return;
 
-        default:
-            titulo.textContent="Heladería Fortunato";
+
+
+    if(
+
+        Router.pantallaActual==="inicio"
+
+    ){
+
+        boton.style.display="none";
 
     }
 
-}
+    else{
 
+        boton.style.display="block";
 
+    }
 
-/*==================================================
-            IR A PRODUCTOS
-==================================================*/
-
-function irProductos(){
-
-    cambiarPantalla("productos");
 
 }
 
 
 
-/*==================================================
-            IR A DIRECCION
-==================================================*/
-
-function irDireccion(){
-
-    cambiarPantalla("direccion");
-
-}
 
 
+window.Router=Router;
 
-/*==================================================
-            IR A SUCURSALES
-==================================================*/
+window.cambiarPantalla=cambiarPantalla;
 
-function irSucursales(){
-
-    cambiarPantalla("sucursales");
-
-}
-
-
-
-/*==================================================
-            IR A SABORES
-==================================================*/
-
-function irSabores(){
-
-    cambiarPantalla("sabores");
-
-}
-
-
-
-/*==================================================
-            IR A CARRITO
-==================================================*/
-
-function irCarrito(){
-
-    cambiarPantalla("carrito");
-
-}
-
-
-
-/*==================================================
-            IR A CONFIRMACION
-==================================================*/
-
-function irConfirmacion(){
-
-    cambiarPantalla("confirmacion");
-
-}
-
-
-
-/*==================================================
-            EXPORTAR
-==================================================*/
-
-window.Router = Router;
-
-window.cambiarPantalla = cambiarPantalla;
-
-window.volverPantalla = volverPantalla;
-
-window.irDireccion = irDireccion;
-
-window.irSucursales = irSucursales;
-
-window.irProductos = irProductos;
-
-window.irSabores = irSabores;
-
-window.irCarrito = irCarrito;
-
+window.volverPantalla=volverPantalla;
 window.irConfirmacion = irConfirmacion;
