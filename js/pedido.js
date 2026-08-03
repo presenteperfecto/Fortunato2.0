@@ -326,28 +326,249 @@ function generarMensajeWhatsApp(){
 /*==================================================
         ENVIAR WHATSAPP
 ==================================================*/
+/*==================================================
+        MERCADO PAGO
+        Conexión Frontend - Backend
+==================================================*/
 
-function enviarWhatsApp(){
 
-    crearPedido();
+async function crearPagoMercadoPago(){
 
-    const mensaje = generarMensajeWhatsApp();
 
-    const telefono = "5491158708358";
+    try{
 
-    const url =
 
-    `https://wa.me/${telefono}?text=${encodeURIComponent(mensaje)}`;
+        crearPedido();
 
-    window.open(
 
-        url,
 
-        "_blank"
+        const respuesta = await fetch(
+
+            "http://localhost:3000/crear-pago",
+
+            {
+
+                method:"POST",
+
+
+                headers:{
+
+                    "Content-Type":
+
+                    "application/json"
+
+                },
+
+
+                body:JSON.stringify(Pedido)
+
+
+            }
+
+        );
+
+
+
+
+        const datos = await respuesta.json();
+
+
+
+
+
+        if(!datos.ok){
+
+
+            mostrarMensaje(
+
+                "No se pudo generar el pago"
+
+            );
+
+
+            return;
+
+
+        }
+
+
+
+
+
+        mostrarPago(datos.pago);
+
+
+
+    }
+
+
+
+    catch(error){
+
+
+        console.error(error);
+
+
+
+        mostrarMensaje(
+
+            "Error de conexión con Mercado Pago"
+
+        );
+
+
+    }
+
+
+
+}
+
+
+
+
+
+
+
+/*==================================================
+            MOSTRAR PAGO
+==================================================*/
+
+
+function mostrarPago(pago){
+
+
+
+    cambiarPantalla("pago");
+
+
+
+    const contenedor =
+
+    document.getElementById(
+
+        "qr-pago"
 
     );
 
+
+
+    const estado =
+
+    document.getElementById(
+
+        "estado-pago"
+
+    );
+
+
+
+
+
+    if(contenedor){
+
+
+
+        // Mercado Pago devuelve
+        // una URL segura de pago
+
+
+        contenedor.style.display="none";
+
+
+
+    }
+
+
+
+
+    if(estado){
+
+
+        estado.innerHTML=`
+
+        <h3>
+
+        Pago generado correctamente
+
+        </h3>
+
+
+        <p>
+
+        Presioná el botón para pagar
+
+        </p>
+
+
+        <a 
+
+        href="${pago.urlPago}"
+
+        target="_blank"
+
+        class="btn-principal">
+
+
+        Abrir Mercado Pago
+
+
+        </a>
+
+        `;
+
+
+    }
+
+
+
 }
+
+
+
+
+
+
+
+/*==================================================
+        CONFIRMAR PAGO
+==================================================*/
+
+
+function confirmarPago(){
+
+
+    cambiarEstadoPedido(
+
+        "PAGO_CONFIRMADO"
+
+    );
+
+
+    irConfirmacion();
+
+
+}
+
+
+
+
+
+
+
+
+/*==================================================
+        EXPORTAR
+==================================================*/
+
+
+window.crearPagoMercadoPago=
+
+crearPagoMercadoPago;
+
+
+window.confirmarPago=
+
+confirmarPago;
 
 
 
