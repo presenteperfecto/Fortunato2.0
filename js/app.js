@@ -210,7 +210,16 @@ cambiarPantalla("sabores");
 }
 
 
+function mostrarEntrega(){
 
+    document
+    .getElementById("delivery-options")
+    .style.display="flex";
+
+}
+
+
+window.mostrarEntrega=mostrarEntrega;
 
 
 /*==================================================
