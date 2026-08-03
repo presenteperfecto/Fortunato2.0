@@ -253,3 +253,13 @@ seleccionarProducto;
 window.agregarProducto=
 
 agregarProducto;
+
+
+function irProductos(){
+
+    cambiarPantalla("productos");
+
+}
+
+
+window.irProductos=irProductos;
