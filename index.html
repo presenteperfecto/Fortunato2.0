@@ -12,11 +12,10 @@
         Heladería Fortunato
     </title>
 
-    <link 
+<link 
 rel="icon" 
 type="image/png" 
 href="imagen/profile_fabricafortunato.png">
-
 
     <!-- CSS -->
 
@@ -31,7 +30,7 @@ href="imagen/profile_fabricafortunato.png">
 
 <header class="header">
 
-    <div class="logo">
+<div class="logo" title="Volver al menú principal">
 
         <h1>
             Heladería Fortunato
@@ -59,11 +58,14 @@ href="imagen/profile_fabricafortunato.png">
 
 <button 
 id="btn-volver"
-onclick="volverPantalla()">
+onclick="volverPantalla()"
+aria-label="Volver a la pantalla anterior"
+title="Volver a la pantalla anterior">
 
 ← Volver
 
 </button>
+
 
 
 
@@ -92,8 +94,9 @@ class="pantalla">
         </p>
 
 
-               <button 
-onclick="mostrarEntrega()"
+        <button 
+        id="btn-realizar-pedido"
+        onclick="mostrarEntrega()"
 class="btn-principal">
 
 Realizar pedido
@@ -341,7 +344,58 @@ Continuar
 </section>
 
 
+<!--========================================
+                PAGO
+=========================================-->
 
+<section 
+id="pago"
+class="pantalla oculto">
+
+
+<h2>
+
+Pago Mercado Pago
+
+</h2>
+
+
+
+<div id="estado-pago">
+
+Esperando generación del pago...
+
+</div>
+
+
+
+<img
+
+id="qr-pago"
+
+src=""
+
+alt="QR Pago"
+
+>
+
+
+
+<button
+
+onclick="confirmarPago()"
+
+class="btn-principal">
+
+
+Enviar pedido por WhatsApp
+
+
+</button>
+
+
+
+</section>
 
 
 
@@ -371,6 +425,14 @@ placeholder="Teléfono">
 
 
 
+<div id="campo-indicaciones">
+
+<textarea
+id="indicaciones-cliente"
+placeholder="Indicaciones para el delivery (opcional)"></textarea>
+
+</div>
+
 <select id="metodo-pago">
 
 
@@ -394,10 +456,10 @@ QR
 
 
 <button 
-onclick="enviarWhatsApp()"
+onclick="crearPagoMercadoPago()"
 class="btn-principal">
 
-Enviar pedido
+Continuar al pago
 
 </button>
 
