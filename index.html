@@ -433,6 +433,24 @@ placeholder="Indicaciones para el delivery (opcional)"></textarea>
 
 </div>
 
+<div class="complementos-pedido">
+
+<h3>¿Querés agregar algo más?</h3>
+
+<label>
+    Cucuruchos x3 — $3.000
+    <input id="cantidad-cucuruchos" class="cantidad-complemento" type="number" min="0" value="0" aria-label="Cantidad de paquetes de cucuruchos">
+</label>
+
+<label>
+    Vasitos x3 — $3.000
+    <input id="cantidad-vasitos" class="cantidad-complemento" type="number" min="0" value="0" aria-label="Cantidad de paquetes de vasitos">
+</label>
+
+<button type="button" class="btn-opcion" onclick="agregarComplementos()">Agregar complementos</button>
+
+</div>
+
 <select id="metodo-pago">
 
 
@@ -452,6 +470,14 @@ QR
 
 
 </select>
+
+<div id="campo-efectivo">
+
+<input
+id="monto-efectivo"
+placeholder="¿Con cuánto dinero vas a abonar? Ej.: $10.000 o justo">
+
+</div>
 
 
 
