@@ -258,9 +258,11 @@ function generarMensajeWhatsApp(){
 
 
 
-        mensaje +=
+        if(producto.sabores.length){
 
-        "Sabores:\n";
+            mensaje += "Sabores:\n";
+
+        }
 
 
 
@@ -390,7 +392,15 @@ function generarMensajeWhatsApp(){
 
     "\n";
 
+    if(Pedido.pago.metodo === "Efectivo"){
+
+        mensaje += "Abona con: " + Pedido.pago.montoEfectivo + "\n";
+
+    }
+
     if(Pedido.pago.metodo === "Transferencia"){
+
+        mensaje += "\nTransferí al alias: Fortunato2.0.mp\n";
 
         mensaje += "\nIMPORTANTE: Enviá el comprobante de transferencia por este WhatsApp para confirmar el pedido.\n";
 
@@ -506,6 +516,15 @@ App.cliente.indicaciones = App.tipoEntrega === "DELIVERY"
     ? document.getElementById("indicaciones-cliente").value.trim()
     : "";
 Pedido.pago.metodo = document.getElementById("metodo-pago").value;
+
+const montoEfectivo = document.getElementById("monto-efectivo").value.trim();
+
+if(Pedido.pago.metodo === "Efectivo" && !montoEfectivo){
+    mostrarMensaje("Indicá si abonás justo o con cuánto dinero vas a pagar");
+    return false;
+}
+
+Pedido.pago.montoEfectivo = Pedido.pago.metodo === "Efectivo" ? montoEfectivo : "";
 return true;
 
 }
@@ -523,6 +542,12 @@ const metodo = Pedido.pago.metodo;
 cambiarPantalla("pago");
 
 if(metodo !== "QR"){
+    if(metodo === "Transferencia"){
+        qr.style.display = "none";
+        estado.textContent = "Transferí al alias Fortunato2.0.mp y enviá el comprobante por WhatsApp.";
+        return;
+    }
+
     qr.style.display = "none";
     estado.textContent = metodo === "Efectivo"
         ? "Pagás en efectivo al recibir o retirar el pedido."

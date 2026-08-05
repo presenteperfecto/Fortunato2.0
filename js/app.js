@@ -294,10 +294,26 @@ const opciones = App.tipoEntrega === "RETIRO"
     : ["Efectivo", "Transferencia", "QR"];
 
 selector.innerHTML = opciones.map(opcion => `<option value="${opcion}">${opcion}</option>`).join("");
+selector.onchange = actualizarCampoEfectivo;
 
 if(campoIndicaciones){
     campoIndicaciones.style.display = App.tipoEntrega === "DELIVERY" ? "block" : "none";
 }
+
+actualizarCampoEfectivo();
+
+}
+
+function actualizarCampoEfectivo(){
+
+const selector = document.getElementById("metodo-pago");
+const campoEfectivo = document.getElementById("campo-efectivo");
+
+if(!selector || !campoEfectivo) return;
+
+campoEfectivo.style.display = App.tipoEntrega === "DELIVERY" && selector.value === "Efectivo"
+    ? "block"
+    : "none";
 
 }
 

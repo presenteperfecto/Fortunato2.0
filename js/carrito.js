@@ -481,6 +481,42 @@ function vaciarCarrito(){
 
 }
 
+function agregarComplementos(){
+
+    const cantidadCucuruchos = Math.max(0, Number(document.getElementById("cantidad-cucuruchos")?.value) || 0);
+    const cantidadVasitos = Math.max(0, Number(document.getElementById("cantidad-vasitos")?.value) || 0);
+
+    if(cantidadCucuruchos === 0 && cantidadVasitos === 0){
+        mostrarMensaje("Elegí al menos un complemento");
+        return;
+    }
+
+    if(cantidadCucuruchos > 0){
+        agregarAlCarrito({
+            id:"extra-cucuruchos-x3",
+            nombre:"Cucuruchos x3",
+            precio:3000,
+            cantidad:cantidadCucuruchos,
+            sabores:[]
+        });
+    }
+
+    if(cantidadVasitos > 0){
+        agregarAlCarrito({
+            id:"extra-vasitos-x3",
+            nombre:"Vasitos x3",
+            precio:3000,
+            cantidad:cantidadVasitos,
+            sabores:[]
+        });
+    }
+
+    document.getElementById("cantidad-cucuruchos").value = 0;
+    document.getElementById("cantidad-vasitos").value = 0;
+    mostrarMensaje("Complementos agregados. Total: $ " + calcularTotalCarrito().toLocaleString("es-AR"));
+
+}
+
 
 
 
@@ -518,3 +554,5 @@ calcularTotalCarrito;
 window.actualizarVistaCarrito=
 
 actualizarVistaCarrito;
+
+window.agregarComplementos = agregarComplementos;
