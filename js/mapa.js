@@ -50,6 +50,22 @@ function iniciarMapa(){
     if(marcadores.length > 1){
         mapa.fitBounds(limites, 60);
     }
+
+    new google.maps.Circle({
+        strokeColor: '#d5b46a',
+        strokeOpacity: 0.8,
+        strokeWeight: 2,
+        fillColor: '#d5b46a',
+        fillOpacity: 0.12,
+        map: mapa,
+        center: ubicacionFortunato,
+        radius: 3000
+    });
+
+    const mapNotice = document.getElementById("map-notice");
+    if(mapNotice){
+        mapNotice.classList.remove("oculto");
+    }
 }
 
 function obtenerUbicacionCliente(){
@@ -75,15 +91,8 @@ function validarDireccion(){
 
     // Distancia simulada hasta integrar un geocodificador.
     App.distancia = 2;
-
-    if(App.distancia <= 3){
-        App.costoEnvio = 0;
-    }else if(App.distancia <= 4.5){
-        App.costoEnvio = 500;
-    }else{
-        mostrarMensaje("No llegamos a esa zona");
-        return false;
-    }
+    App.costoEnvio = App.tipoEntrega === "DELIVERY" ? 2000 : 0;
+   /* mostrarMensaje(`Distancia calculada: ${App.distancia} km. Delivery visible en el mapa dentro del radio de 3 km desde la Fábrica Principal.`, 7000);*/
 
     irProductos();
 }

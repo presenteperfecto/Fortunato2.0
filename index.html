@@ -66,12 +66,7 @@ title="Volver a la pantalla anterior">
 
 </button>
 
-
-
-
 <main>
-
-
 <!--========================================
                 INICIO
 =========================================-->
@@ -93,35 +88,24 @@ class="pantalla">
             Elegí tus sabores favoritos
         </p>
 
-
         <button 
         id="btn-realizar-pedido"
         onclick="mostrarEntrega()"
 class="btn-principal">
-
 Realizar pedido
-
 </button>
-
-
     </div>
-
-
 
     <div 
     id="delivery-options"
     class="opciones-entrega">
-
-
         <button 
         id="btn-delivery"
         class="btn-opcion">
 
-
-            🚚
+            🏍️
 
             Delivery
-
 
         </button>
 
@@ -131,13 +115,13 @@ Realizar pedido
         id="btn-retiro"
         class="btn-opcion">
 
-
             🏪
 
             Retirar en local
 
-
         </button>
+
+        <p class="info-entrega">Delivery habilitado únicamente para la Fábrica Principal. La sucursal "Heladeria Fortunato Emilio Mitre" no dispone del servicio de Delivery por el momento.</p>
 
 
     </div>
@@ -166,7 +150,12 @@ class="pantalla oculto">
 </h2>
 
 
-<div id="map"></div>
+<div id="map-wrapper">
+    <div id="map"></div>
+    <div id="map-notice" class="map-notice oculto">
+        Mapa de Delivery: sombreado circular de 3 km alrededor de la Fábrica Principal.
+    </div>
+</div>
 
 
 
@@ -242,11 +231,7 @@ Elegí tu producto
 <div 
 id="lista-productos"
 class="productos-container">
-
-
 </div>
-
-
 </section>
 
 
@@ -279,10 +264,13 @@ class="sabores-container">
 
 
 <button 
+id="btn-agregar-pedido"
 onclick="confirmarSabores()"
-class="btn-principal">
+class="btn-principal"
+aria-label="✚ Agregar Pedido"
+title="✚ Agregar Pedido">
 
-Agregar al pedido
+✚
 
 </button>
 
@@ -302,34 +290,26 @@ Agregar al pedido
 <section 
 id="carrito"
 class="pantalla oculto">
-
-
+ 
+ 
 <h2>
 Tu pedido
 </h2>
-
-
-
+ 
+ 
+ 
 <div 
 id="carrito-lista">
-
-
+ 
+ 
 </div>
-
-
-
-<h3>
-
-Total:
-
-<span id="carrito-total">
-
-0
-
-</span>
-
-</h3>
-
+ 
+ 
+<div class="carrito-resumen">
+    <p>Subtotal: <span id="carrito-subtotal">$ 0</span></p>
+    <p id="carrito-envio-line" class="oculto">Recargo delivery: <span id="carrito-envio">$ 0</span></p>
+    <h3>Total: <span id="carrito-total">$ 0</span></h3>
+</div>
 
 
 <button 
@@ -434,23 +414,63 @@ placeholder="Indicaciones para el delivery (opcional)"></textarea>
 </div>
 
 <div class="complementos-pedido">
-
-<h3>¿Querés agregar algo más?</h3>
-
+ 
+<h3>Agregar</h3>
+ 
 <label>
     Cucuruchos x3 — $3.000
-    <input id="cantidad-cucuruchos" class="cantidad-complemento" type="number" min="0" value="0" aria-label="Cantidad de paquetes de cucuruchos">
+    <select id="cantidad-cucuruchos" class="cantidad-complemento" aria-label="Cantidad de paquetes de cucuruchos">
+        <option value="0">0</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+        <option value="7">7</option>
+        <option value="8">8</option>
+        <option value="9">9</option>
+        <option value="10">10</option>
+        <option value="11">11</option>
+        <option value="12">12</option>
+        <option value="13">13</option>
+        <option value="14">14</option>
+        <option value="15">15</option>
+    </select>
 </label>
-
+ 
 <label>
     Vasitos x3 — $3.000
-    <input id="cantidad-vasitos" class="cantidad-complemento" type="number" min="0" value="0" aria-label="Cantidad de paquetes de vasitos">
+    <select id="cantidad-vasitos" class="cantidad-complemento" aria-label="Cantidad de paquetes de vasitos">
+        <option value="0">0</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+        <option value="7">7</option>
+        <option value="8">8</option>
+        <option value="9">9</option>
+        <option value="10">10</option>
+        <option value="11">11</option>
+        <option value="12">12</option>
+        <option value="13">13</option>
+        <option value="14">14</option>
+        <option value="15">15</option>
+    </select>
 </label>
-
-<button type="button" class="btn-opcion" onclick="agregarComplementos()">Agregar complementos</button>
-
+ 
+<button type="button" class="btn-opcion" onclick="agregarComplementos()">Agregar</button>
+ 
 </div>
-
+ 
+<div class="pedido-resumen">
+    <p>Subtotal: <span id="pedido-subtotal">$ 0</span></p>
+    <p id="pedido-envio-line" class="oculto">Recargo delivery: <span id="pedido-envio">$ 0</span></p>
+    <p class="pedido-total">Total: <strong id="pedido-total">$ 0</strong></p>
+</div>
+ 
 <select id="metodo-pago">
 
 

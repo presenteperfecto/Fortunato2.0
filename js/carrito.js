@@ -357,21 +357,11 @@ function actualizarVistaCarrito(){
 
 
 
-        <p>
-
-        ${item.sabores
-
-        .map(s=>s.nombre)
-
-        .join(", ")}
-
-
-        </p>
+        ${item.sabores.length ? `<p>${item.sabores.map(s => s.cantidad ? `${s.nombre} x${s.cantidad}` : s.nombre).join(", ")}</p>` : ""}
 
 
 
         <strong>
-
         Cantidad:
 
         ${item.cantidad}
@@ -388,29 +378,9 @@ function actualizarVistaCarrito(){
 
         <button
 
-        onclick="disminuirCantidad(${index})">
-
-        -
-
-        </button>
-
-
-
-        <button
-
-        onclick="aumentarCantidad(${index})">
-
-        +
-
-        </button>
-
-
-
-        <button
-
         onclick="eliminarDelCarrito(${index})">
 
-        ❌
+        🗑️
 
         </button>
 
@@ -433,25 +403,31 @@ function actualizarVistaCarrito(){
 
 
 
-    if(total){
+    const subtotal = calcularTotalCarrito();
+    const envio = App.tipoEntrega === "DELIVERY" && App.costoEnvio ? App.costoEnvio : 0;
+    const totalConEnvio = subtotal + envio;
 
+    const subtotalEl = document.getElementById("carrito-subtotal");
+    const envioLine = document.getElementById("carrito-envio-line");
+    const envioEl = document.getElementById("carrito-envio");
 
-        total.textContent=
-
-        "$ "
-
-        +
-
-        calcularTotalCarrito()
-
-        .toLocaleString("es-AR");
-
-
+    if(subtotalEl){
+        subtotalEl.textContent = "$ " + subtotal.toLocaleString("es-AR");
     }
 
+    if(envioLine && envioEl){
+        if(envio > 0){
+            envioLine.classList.remove("oculto");
+            envioEl.textContent = "$ " + envio.toLocaleString("es-AR");
+        } else {
+            envioLine.classList.add("oculto");
+        }
+    }
 
+    if(total){
+        total.textContent = "$ " + totalConEnvio.toLocaleString("es-AR");
+    }
 }
-
 
 
 
@@ -483,10 +459,10 @@ function vaciarCarrito(){
 
 function agregarComplementos(){
 
-    const cantidadCucuruchos = Math.max(0, Number(document.getElementById("cantidad-cucuruchos")?.value) || 0);
-    const cantidadVasitos = Math.max(0, Number(document.getElementById("cantidad-vasitos")?.value) || 0);
+    const cantidadCucuruchos = Number(document.getElementById("cantidad-cucuruchos")?.value) || 0;
+    const cantidadVasitos = Number(document.getElementById("cantidad-vasitos")?.value) || 0;
 
-    if(cantidadCucuruchos === 0 && cantidadVasitos === 0){
+    if(!cantidadCucuruchos && !cantidadVasitos){
         mostrarMensaje("Elegí al menos un complemento");
         return;
     }
@@ -514,7 +490,9 @@ function agregarComplementos(){
     document.getElementById("cantidad-cucuruchos").value = 0;
     document.getElementById("cantidad-vasitos").value = 0;
     mostrarMensaje("Complementos agregados. Total: $ " + calcularTotalCarrito().toLocaleString("es-AR"));
-
+    if(typeof actualizarResumenConfirmacion === "function"){
+        actualizarResumenConfirmacion();
+    }
 }
 
 

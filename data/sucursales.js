@@ -10,7 +10,7 @@ const sucursales=[
 
     id:1,
 
-    nombre:"La Fábrica (principal)",
+    nombre:"Fabrica Fortunato",
 
     principal:true,
 
@@ -38,7 +38,7 @@ const sucursales=[
 
     id:2,
 
-    nombre:"Sucursal Emilio Mitre",
+    nombre:"Heladeria Fortunato",
 
     principal:false,
 
@@ -69,35 +69,20 @@ const sucursales=[
 
 
 function obtenerSucursales(){
-
-
     return sucursales.filter(
-
         sucursal=>sucursal.activa
-
     );
-
-
 }
 
 
 
 function obtenerSucursal(id){
-
-
     return sucursales.find(
-
         sucursal=>sucursal.id===id
-
     );
-
-
 }
 
 
-
 window.sucursales=sucursales;
-
 window.obtenerSucursales=obtenerSucursales;
-
 window.obtenerSucursal=obtenerSucursal;

@@ -5,65 +5,31 @@
 
 
 const Pedido = {
-
-
     codigo:"",
-
     fecha:null,
-
     estado:"PENDIENTE",
-
-
     tipoEntrega:"",
-
-
     sucursal:null,
 
-
     cliente:{
-
-
         nombre:"",
-
         telefono:"",
-
         direccion:"",
-
         entreCalles:"",
-
         indicaciones:""
-
-
     },
 
 
     pago:{
-
-
         metodo:"",
-
         estado:"PENDIENTE"
-
-
     },
 
-
     productos:[],
-
-
     subtotal:0,
-
-
     envio:0,
-
-
     descuento:0,
-
-
     total:0
-
-
-
 };
 
 
@@ -206,91 +172,42 @@ function generarMensajeWhatsApp(){
 
 
     let mensaje="";
-
-
-
     mensaje +=
-
     "🍦 HELADERÍA FORTUNATO\n";
-
-
-
     mensaje +=
-
     "====================\n\n";
-
-
-
-
     mensaje +=
-
     "Pedido: "
-
     +
-
     Pedido.codigo
-
     +
-
     "\n\n";
-
-
-
-
-
     mensaje +=
-
     "📦 PRODUCTOS\n\n";
 
-
-
-
-
     Pedido.productos.forEach(
-
     (producto,index)=>{
-
-
-
         mensaje +=
 
         `${index+1}) ${producto.cantidad} x ${producto.nombre}\n`;
 
-
-
         if(producto.sabores.length){
-
             mensaje += "Sabores:\n";
-
         }
 
-
-
         producto.sabores.forEach(
-
         sabor=>{
-
-
             mensaje +=
-
             "• "
-
             +
-
             sabor.nombre
-
             +
-
+            (sabor.cantidad ? ` x${sabor.cantidad}` : "")
+            +
             "\n";
-
-
         });
 
-
-
         mensaje += "\n";
-
-
 
     });
 
@@ -301,29 +218,16 @@ function generarMensajeWhatsApp(){
 
 
     if(Pedido.tipoEntrega==="DELIVERY"){
-
-
-
         mensaje +=
-
-        "🚚 DELIVERY\n\n";
-
-
+        "🏍️ DELIVERY\n\n";
 
         mensaje +=
 
         "Dirección: "
-
         +
-
         Pedido.cliente.direccion
-
         +
-
         "\n";
-
-
-
         mensaje +=
 
         "Entre calles: "
@@ -342,18 +246,14 @@ function generarMensajeWhatsApp(){
 
         }
 
-
+        if(Pedido.envio){
+            mensaje += "Envío: $" + Pedido.envio.toLocaleString("es-AR") + "\n\n";
+        }
 
     }
-
     else{
-
-
         mensaje +=
-
         "🏪 RETIRO EN LOCAL\n\n";
-
-
     }
 
 
@@ -365,15 +265,10 @@ function generarMensajeWhatsApp(){
     mensaje +=
 
     "💰 TOTAL: $"
-
     +
-
     Pedido.total
-
     .toLocaleString("es-AR")
-
     +
-
     "\n\n";
 
 
@@ -381,17 +276,11 @@ function generarMensajeWhatsApp(){
 
 
     mensaje +=
-
     "💳 Pago: "
-
     +
-
     Pedido.pago.metodo
-
     +
-
     "\n";
-
     if(Pedido.pago.metodo === "Efectivo"){
 
         mensaje += "Abona con: " + Pedido.pago.montoEfectivo + "\n";
@@ -405,22 +294,8 @@ function generarMensajeWhatsApp(){
         mensaje += "\nIMPORTANTE: Enviá el comprobante de transferencia por este WhatsApp para confirmar el pedido.\n";
 
     }
-
-
-
-
     return mensaje;
-
-
-
 }
-
-
-
-
-
-
-
 
 
 /*==================================================
@@ -435,27 +310,16 @@ function enviarWhatsApp(){
     }
 
 
-
     const mensaje=
-
     generarMensajeWhatsApp();
-
-
-
 
     const telefono=
 
     "5491158708358";
 
-
-
-
     const url=
 
     `https://wa.me/${telefono}?text=${encodeURIComponent(mensaje)}`;
-
-
-
 
 
     window.open(
@@ -471,34 +335,17 @@ function enviarWhatsApp(){
 }
 
 
-
-
-
-
-
-
 /*==================================================
             EXPORTAR
 ==================================================*/
 
-
 window.Pedido=Pedido;
-
-
 window.crearPedido=
-
 crearPedido;
-
-
 window.enviarWhatsApp=
-
 enviarWhatsApp;
-
-
 window.generarMensajeWhatsApp=
-
 generarMensajeWhatsApp;
-
 
 function guardarDatosCliente(){
 
@@ -534,6 +381,11 @@ async function crearPagoMercadoPago(){
 if(!guardarDatosCliente()) return;
 
 crearPedido();
+
+if(Pedido.tipoEntrega === "DELIVERY" && Pedido.subtotal < 7500){
+    mostrarMensaje("El mínimo de compra para delivery es $ 7.500");
+    return;
+}
 
 const estado = document.getElementById("estado-pago");
 const qr = document.getElementById("qr-pago");

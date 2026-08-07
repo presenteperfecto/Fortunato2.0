@@ -7,34 +7,21 @@ const App={
 
 
     tipoEntrega:null,
-
-
     sucursal:null,
 
 
     cliente:{
-
-
         nombre:"",
-
         telefono:"",
-
         direccion:"",
-
         entreCalles:"",
-
         indicaciones:""
-
-
     },
 
 
     productoActual:null,
 
-
     carrito:[]
-
-
 };
 
 
@@ -45,11 +32,7 @@ document.addEventListener(
 "DOMContentLoaded",
 
 ()=>{
-
-
     iniciarEventos();
-
-
 });
 
 
@@ -86,17 +69,22 @@ if(delivery){
 delivery.onclick=()=>{
 
 
-    App.tipoEntrega="DELIVERY";
 
+    App.tipoEntrega="DELIVERY";
+    App.costoEnvio = 2000;
+    App.sucursal = obtenerSucursales().find(sucursal => sucursal.principal) || null;
+
+    mostrarMensaje("Delivery: Martes a Domingos de 20:00 hs a 00:00 hs. Feriados, consultar disponibilidad de servicio.", 2000, true, "center");
 
     obtenerUbicacionCliente();
+
 
 
 };
 
 
-}
 
+}
 
 
 
@@ -107,6 +95,7 @@ retiro.onclick=()=>{
 
 
     App.tipoEntrega="RETIRO";
+    App.costoEnvio = 0;
 
 
     cargarSucursales();
@@ -119,7 +108,6 @@ retiro.onclick=()=>{
 
 
 }
-
 const logo = document.querySelector(".logo");
 
 if(logo){
@@ -214,8 +202,6 @@ irProductos();
 
 
 contenedor.appendChild(boton);
-
-
 
 });
 
@@ -323,7 +309,12 @@ function mostrarEntrega(){
 
     if(!opciones) return;
 
-    opciones.classList.add("mostrar");
+    opciones.classList.remove("mostrar");
+    mostrarMensaje("Abierto de 12:00 hs a 23:59 hs.", 2000, true, "center");
+
+    setTimeout(() => {
+        opciones.classList.add("mostrar");
+    }, 2000);
 
 }
 
@@ -342,23 +333,9 @@ function irProductos(){
 
 
 window.App=App;
-
-window.seleccionarProducto=
-
-seleccionarProducto;
-
-window.agregarProducto=
-
-agregarProducto;
-
-
-
-
+window.seleccionarProducto=seleccionarProducto;
+window.agregarProducto= agregarProducto;
 window.mostrarEntrega=mostrarEntrega;
-
-
-
 window.irProductos = irProductos;
-
 window.mostrarCarrito = mostrarCarrito;
 window.actualizarOpcionesPago = actualizarOpcionesPago;

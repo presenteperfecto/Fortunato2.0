@@ -11,39 +11,26 @@
 
 
 *{
-
     margin:0;
-
     padding:0;
-
     box-sizing:border-box;
-
 }
 
 
 html{
-
     scroll-behavior:smooth;
-
 }
 
 
 body{
-
     min-height:100vh;
-
     font-family:
-
     "Segoe UI",
     Arial,
     sans-serif;
-
     background:
-
     #0d0d0d;
-
     color:#ffffff;
-
 }
 
 
@@ -56,48 +43,25 @@ body{
 
 
 .header{
-
     width:100%;
-
     height:90px;
-
     position:fixed;
-
     top:0;
-
     left:0;
-
     z-index:1000;
-
     display:flex;
-
     align-items:center;
-
     justify-content:space-between;
-
     padding:15px 25px;
-
-
     background:
-
     linear-gradient(
-
         135deg,
-
         #050505,
-
         #1c1c1c
-
     );
-
-
     border-bottom:
-
     2px solid
-
     #8b6b2f;
-
-
 }
 
 
@@ -196,40 +160,19 @@ select:focus-visible{
 
 
 #cart-count{
-
-
     position:absolute;
-
     top:-5px;
-
     right:-5px;
-
-
     width:22px;
-
     height:22px;
-
-
     background:#ffffff;
-
     color:#000;
-
-
     border-radius:50%;
-
-
     display:flex;
-
     align-items:center;
-
     justify-content:center;
-
-
     font-size:12px;
-
     font-weight:bold;
-
-
 }
 
 
@@ -244,28 +187,19 @@ select:focus-visible{
 
 
 main{
-
     padding-top:100px;
-
 }
 
 
 
 .pantalla{
-
-
     min-height:calc(100vh - 100px);
-
     padding:25px;
-
-
 }
 
 
 .oculto{
-
     display:none !important;
-
 }
 
 
@@ -278,38 +212,22 @@ main{
 
 
 .hero{
-
-
     text-align:center;
-
     margin-top:40px;
-
-
 }
 
 
 .hero h2{
-
-
     font-size:42px;
-
     color:#c8a75d;
-
-
 }
 
 
 
 .hero p{
-
-
     margin-top:15px;
-
     font-size:20px;
-
     color:#ddd;
-
-
 }
 
 
@@ -324,121 +242,112 @@ main{
 
 
 button{
-
-
     border:none;
-
     cursor:pointer;
-
     font-size:16px;
-
-    transition:.3s;
-
-
+    transition:.1s;
 }
 
 
 
 .btn-principal{
 
-
     margin-top:25px;
-
     padding:15px 40px;
-
-
     border-radius:30px;
-
-
     background:
-
     linear-gradient(
-
         135deg,
-
         #b89645,
-
         #e0c47a
-
     );
-
-
     color:#000;
-
     font-weight:bold;
-
-
 }
 
 
 
 .btn-principal:hover{
 
-
     transform:scale(1.05);
-
 
 }
 
+#btn-agregar-pedido{
+    position:fixed;
+    right:20px;
+    bottom:20px;
+    z-index:950;
+    min-width:46px;
+    height:46px;
+    padding:0;
+    border-radius:50%;
+    background:#171717;
+    border:1px solid #8b6b2f;
+    color:#ffffff;
+    font-size:24px;
+    line-height:46px;
+    overflow:hidden;
+    text-align:center;
+    transition:.1s ease;
+    display:none;
+}
 
+#btn-agregar-pedido:hover{
+    width:auto;
+    min-width:160px;
+    padding:0 18px;
+    border-radius:30px;
+    background:#b89645;
+    color:#000;
+}
 
+#btn-agregar-pedido::after{
+    content:"";
+    display:inline-block;
+    opacity:0;
+    transition:.2s ease;
+}
+
+#btn-agregar-pedido:hover::after{
+    content:" Agregar Pedido";
+    opacity:1;
+}
+
+#sabores:not(.oculto) #btn-agregar-pedido{
+    display:block;
+}
 
 .opciones-entrega{
-
-
     display:none;
-
     justify-content:center;
-
     gap:20px;
-
     margin-top:50px;
-
-
 }
 
 
 
 .btn-opcion{
 
-
     width:180px;
-
     height:100px;
-
-
     border-radius:15px;
-
-
     background:#171717;
-
-
     color:white;
-
-
     border:
-
     1px solid #8b6b2f;
-
-
 }
 
 
 
 .btn-opcion:hover{
-
-
     background:#b89645;
-
     color:#000;
-
-
 }
 
 .opciones-entrega.mostrar{
 
     display:flex;
-
 }
 
 .direccion-sucursal{
@@ -456,7 +365,7 @@ button{
 
     position:fixed;
     right:20px;
-    bottom:20px;
+    bottom:90px;
     z-index:900;
     width:46px;
     height:46px;
@@ -474,14 +383,21 @@ button{
 
     background:#b89645;
     color:#000000;
+    min-width:140px;
+    padding:0 18px;
+    border-radius:30px;
 
 }
 
 #btn-volver::after{
 
-    content:"←";
+    content:"↩";
     font-size:25px;
 
+}
+
+#btn-volver:hover::after{
+    content:"↩ Volver";
 }
 
 
@@ -493,6 +409,9 @@ button{
                     MAPA
 ==================================================*/
 
+#map-wrapper{
+    position:relative;
+}
 
 #map{
 
@@ -514,6 +433,26 @@ button{
 
 }
 
+.map-notice{
+    position:absolute;
+    top:12px;
+    left:12px;
+    background:rgba(17,17,17,0.88);
+    color:#f5f4eb;
+    padding:8px 12px;
+    border:1px solid rgba(255,255,255,0.28);
+    border-radius:12px;
+    font-size:13px;
+    max-width:220px;
+    line-height:1.3;
+    z-index:100;
+    box-shadow:0 6px 18px rgba(0,0,0,0.25);
+}
+
+.map-notice.oculto{
+    display:none !important;
+}
+
 
 
 
@@ -525,40 +464,17 @@ button{
 ==================================================*/
 
 
-input,
-
-select{
-
-
+input, select{
     width:100%;
-
-
     max-width:450px;
-
-
     padding:15px;
-
-
     margin:10px auto;
-
-
     display:block;
-
-
     border-radius:10px;
-
-
     border:
-
     1px solid #8b6b2f;
-
-
     background:#161616;
-
-
     color:white;
-
-
 }
 
 
@@ -573,25 +489,13 @@ select{
 
 
 .productos-container{
-
-
     display:grid;
-
-
     grid-template-columns:
-
     repeat(
-
         auto-fit,
-
         minmax(220px,1fr)
-
     );
-
-
     gap:20px;
-
-
 }
 
 
@@ -600,46 +504,27 @@ select{
 
 
     background:#151515;
-
-
     border-radius:20px;
-
-
     padding:20px;
-
-
     text-align:center;
-
-
     border:
-
     1px solid #8b6b2f;
-
-
 }
 
 
 
 .producto-card h3{
 
-
     color:#d5b46a;
-
-
 }
 
 
 .producto-card button{
 
-
     margin-top:15px;
-
     padding:10px 25px;
-
     border-radius:20px;
-
     background:#b89645;
-
 }
 
 
@@ -652,44 +537,43 @@ select{
 
 
 .sabores-container{
-
-
     display:grid;
-
-
     grid-template-columns:1fr;
-
     gap:20px;
-
-
 }
 
 
 
 .sabor-item{
-
-
     background:#171717;
-
-
     padding:15px;
-
-
     border-radius:12px;
-
-
     border:
-
     1px solid #333;
-
     position:relative;
     display:flex;
     align-items:center;
     cursor:pointer;
-
-
 }
 
+.sabor-item.seleccionado::after{
+    content:"";
+    position:absolute;
+    top:50%;
+    right:16px;
+    transform:translateY(-50%);
+    width:24px;
+    height:24px;
+    background:url("../imagen/profile_fabricafortunato.png") center/contain no-repeat;
+}
+
+.sabor-item .sabor-info{
+    width:100%;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:12px;
+}
 textarea{
 
     width:100%;
@@ -794,54 +678,70 @@ textarea{
 
 
 .carrito-item{
-
-
     display:flex;
-
-
     justify-content:space-between;
-
-
     align-items:center;
-
-
     background:#171717;
-
-
     padding:20px;
-
-
     margin-bottom:15px;
-
-
     border-radius:15px;
-
-
     border:
-
     1px solid #8b6b2f;
-
-
 }
 
+.carrito-resumen,
+.pedido-resumen{
+    margin-top:20px;
+    padding:16px;
+    border-radius:16px;
+    border:1px solid #8b6b2f;
+    background:#111111;
+}
+
+.carrito-resumen p,
+.pedido-resumen p{
+    margin:8px 0;
+    color:#ddd;
+}
+
+#carrito button[onclick^="disminuirCantidad"],
+#carrito button[onclick^="aumentarCantidad"]{
+    display:none !important;
+}
+
+.cantidad-complemento{
+    width:90px;
+    min-width:90px;
+    max-width:90px;
+    min-height:50px;
+    padding:10px;
+    border-radius:10px;
+    border:1px solid #8b6b2f;
+    background:#161616;
+    color:#fff;
+    text-align:center;
+}
+
+.pedido-total,
+.carrito-resumen h3{
+    margin-top:12px;
+}
 
 
 .btn-eliminar{
-
-
     background:none;
-
-
     color:#ff5555;
-
-
     font-size:20px;
-
-
 }
 
 
 
+.cantidad-complemento{
+    width:75px;
+    min-width:75px;
+    padding:8px;
+    margin:0;
+}
 
 
 
@@ -852,40 +752,17 @@ textarea{
 
 
 .mensaje-flotante{
-
-
     position:fixed;
-
-
     bottom:30px;
-
-
     left:50%;
-
-
     transform:
-
     translateX(-50%);
-
-
     background:#b89645;
-
-
     color:#000;
-
-
     padding:15px 30px;
-
-
     border-radius:30px;
-
-
     opacity:0;
-
-
     transition:.3s;
-
-
     z-index:2000;
 
 
@@ -895,12 +772,20 @@ textarea{
 
 .mensaje-flotante.mostrar{
 
-
     opacity:1;
-
-
 }
 
+.mensaje-flotante.mensaje-flotante--center{
+    top:50%;
+    bottom:auto;
+    left:50%;
+    transform:translate(-50%, -50%);
+    background:rgba(255,255,255,0.92);
+    color:#000;
+    backdrop-filter:blur(12px);
+    box-shadow:0 18px 40px rgba(0,0,0,0.25);
+    max-width:90vw;
+}
 
 
 
@@ -915,53 +800,32 @@ textarea{
 
 
     .logo h1{
-
-
         font-size:20px;
-
-
     }
 
 
 
     .hero h2{
-
-
         font-size:30px;
-
-
     }
 
 
 
     .opciones-entrega{
-
-
         flex-direction:column;
-
         align-items:center;
-
-
     }
 
 
 
     .btn-opcion{
-
-
         width:90%;
-
-
     }
 
 
 
     .pantalla{
-
-
         padding:15px;
-
-
     }
 
 
@@ -969,9 +833,9 @@ textarea{
 
 .complementos-pedido{
 
-    max-width:600px;
-    margin:25px 0;
-    padding:20px;
+    max-width:380px;
+    margin:20px auto;
+    padding:14px;
     border:1px solid #8b6b2f;
     border-radius:15px;
     background:#171717;
@@ -995,7 +859,7 @@ textarea{
 
 }
 
-.cantidad-complemento{
+.cantidad-complemento option{
 
     width:75px;
     min-width:75px;
@@ -1004,8 +868,43 @@ textarea{
 
 }
 
-#campo-efectivo{
-
+.cantidad-fija{
+    margin:10px auto;
+    max-width:450px;
+    color:#ddd;
+    font-size:14px;
+    text-align:center;
     display:none;
+}
 
+.cantidad-invisible{
+    display:none !important;
+}
+
+.sabor-item{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:12px;
+}
+
+.sabor-item input.cantidad-sabor{
+    width:70px;
+    min-width:70px;
+    padding:10px;
+    border-radius:10px;
+    border:1px solid #8b6b2f;
+    background:#161616;
+    color:#fff;
+    text-align:center;
+}
+
+.paleta-cantidad-instruccion{
+    margin-bottom:16px;
+    color:#ddd;
+    font-size:14px;
+}
+
+#campo-efectivo{
+    display:none;
 }

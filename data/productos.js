@@ -14,7 +14,7 @@ const productos = [
 
     categoria:"Helado",
 
-    precio:3500,
+    precio:4500,
 
     saboresPermitidos:3,
 
@@ -34,7 +34,7 @@ const productos = [
 
     categoria:"Helado",
 
-    precio:6500,
+    precio:7500,
 
     saboresPermitidos:4,
 
@@ -55,7 +55,7 @@ const productos = [
 
     categoria:"Helado",
 
-    precio:12000,
+    precio:13000,
 
     saboresPermitidos:4,
 
@@ -76,7 +76,7 @@ const productos = [
 
     categoria:"Paleta",
 
-    precio:2500,
+    precio:3500,
 
     saboresPermitidos:1,
 
@@ -100,7 +100,7 @@ const productos = [
 
 const configuracionVenta={
 
-    compraMinima:500,
+    compraMinima:7500,
 
     permitePostres:false,
 
