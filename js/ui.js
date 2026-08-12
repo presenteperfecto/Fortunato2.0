@@ -155,7 +155,7 @@ const grupos = esPaleta ? [{
         sabores:saboresDisponibles.filter(sabor => sabor.nombre.toLowerCase().includes("dulce de leche"))
     },
     {
-        titulo:"Otros gustos",
+        titulo:"Frutales & Especiales",
         sabores:saboresDisponibles.filter(sabor => {
             const nombre = sabor.nombre.toLowerCase();
             return !nombre.startsWith("chocolate") &&
