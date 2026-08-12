@@ -221,7 +221,7 @@ function hayStock(id,cantidad=1){
 ==================================================*/
 
 
-function descontarStock(id,cantidad=1){
+/*function descontarStock(id,cantidad=1){
 
     const producto=obtenerProducto(id);
 
@@ -231,7 +231,7 @@ function descontarStock(id,cantidad=1){
 
     producto.stock-=cantidad;
 
-}
+}*/
 
 
 
@@ -244,7 +244,7 @@ function descontarStock(id,cantidad=1){
 ==================================================*/
 
 
-function cambiarDisponibilidad(id,estado){
+/*function cambiarDisponibilidad(id,estado){
 
     const producto=obtenerProducto(id);
 
@@ -254,7 +254,7 @@ function cambiarDisponibilidad(id,estado){
 
     }
 
-}
+}*/
 
 
 
@@ -279,6 +279,6 @@ window.obtenerCategoria=obtenerCategoria;
 
 window.hayStock=hayStock;
 
-window.descontarStock=descontarStock;
+/*window.descontarStock=descontarStock;
 
-window.cambiarDisponibilidad=cambiarDisponibilidad;
+window.cambiarDisponibilidad=cambiarDisponibilidad;*/

@@ -450,7 +450,7 @@ actualizarVistaCarrito;
 
 
 /* Mensajes y pasos posteriores al carrito. */
-function mostrarMensaje(texto, duracion = 3000, conBorde = false, posicion = "bottom"){
+function mostrarMensaje(texto, duracion = 1500, conBorde = false, posicion = "bottom"){
 
 let mensaje = document.querySelector(".mensaje-flotante");
 
@@ -480,7 +480,7 @@ function irConfirmacion(){
 
     const subtotal = calcularTotalCarrito();
     if(App.tipoEntrega === "DELIVERY" && subtotal < 7500){
-        mostrarMensaje("El mínimo de compra para delivery es $ 7.500");
+        mostrarMensaje("Mínimo de compra en delivery: 2 🍨1/4kg o equivalentes");
         return;
     }
 
