@@ -33,6 +33,40 @@ body{
     color:#ffffff;
 }
 
+/*==================================================
+                    Fondo de la página
+==================================================*/
+
+/*==================================================
+                    Fondo de la página
+==================================================*/
+/*==================================================
+                    Fondo de la página
+==================================================*/
+.fondo-heladeria {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1;
+    opacity: 0.15;
+}
+
+/* En celulares (430x932 y 375x667) el comportamiento ya se adapta automáticamente */
+@media (max-width: 900px) {
+    .fondo-heladeria {
+        object-fit: cover;
+    }
+}
+
+@media (max-width: 700px) {
+    .fondo-heladeria {
+        object-fit:fill;
+    }
+}
+
+
 
 
 
@@ -230,16 +264,9 @@ main{
     color:#ddd;
 }
 
-
-
-
-
-
-
 /*==================================================
                 BOTONES
 ==================================================*/
-
 
 button{
     border:none;
@@ -247,7 +274,6 @@ button{
     font-size:16px;
     transition:.1s;
 }
-
 
 
 .btn-principal{
@@ -266,11 +292,8 @@ button{
 }
 
 
-
 .btn-principal:hover{
-
     transform:scale(1.05);
-
 }
 
 #btn-agregar-pedido{
@@ -325,7 +348,12 @@ button{
     margin-top:50px;
 }
 
-
+ .sucursales-pantalla{
+        padding:5px 5px;
+        grid-template-columns:max-content;
+        grid-row: inherit;
+        align-content: center;
+    }
 
 .btn-opcion{
 
@@ -334,8 +362,9 @@ button{
     border-radius:15px;
     background:#171717;
     color:white;
-    border:
-    1px solid #8b6b2f;
+    border: 1px solid #8b6b2f;
+    margin: 3px 3px 10px 3%;
+    opacity: 0.9;
 }
 
 
@@ -346,7 +375,6 @@ button{
 }
 
 .opciones-entrega.mostrar{
-
     display:flex;
 }
 
@@ -496,6 +524,7 @@ input, select{
         minmax(220px,1fr)
     );
     gap:20px;
+    opacity: 0.9;
 }
 
 
@@ -540,6 +569,7 @@ input, select{
     display:grid;
     grid-template-columns:1fr;
     gap:20px;
+    opacity: 0.9;
 }
 
 
@@ -696,12 +726,14 @@ textarea{
     border-radius:16px;
     border:1px solid #8b6b2f;
     background:#111111;
+    opacity: 0.9;
 }
 
 .carrito-resumen p,
 .pedido-resumen p{
     margin:8px 0;
     color:#ddd;
+    
 }
 
 #carrito button[onclick^="disminuirCantidad"],
@@ -821,7 +853,12 @@ textarea{
     .btn-opcion{
         width:90%;
     }
-
+    .sucursales-pantalla{
+        padding:5px 5px;
+        grid-template-columns:max-content;
+        grid-row: inherit;
+        align-content: center;
+    }
 
 
     .pantalla{
@@ -839,6 +876,7 @@ textarea{
     border:1px solid #8b6b2f;
     border-radius:15px;
     background:#171717;
+    opacity: 0.9;
 
 }
 
